@@ -1,4 +1,4 @@
-domains	
+   domains	
 	dataxxx = orang(Nama,Leptop)
 	Nama,Leptop=string
 	kondisi = cond*
@@ -12,6 +12,7 @@ predicates
 	nondeterm dataxx(Nama,Leptop)
 	nondeterm lihat(kondisi)
 	nondeterm mulai
+	nondeterm pilxx(char)
 	nondeterm pilx0(char)
 	nondeterm pilx1(char)
 	nondeterm pilx2(char)
@@ -44,11 +45,13 @@ predicates
 	nondeterm sol5
 	nondeterm sol6
 	xxx
+	nondeterm xxxx
 	exitx
 	ans(char,char)
 clauses
 ans(Y,Y):-!.
 ans(_,_):-fail.
+
 	datax(["\t\t\t\t         1. ","Muhammad Rijali Rahman","1515015187\n","\t\t\t\t         2. ","Arief Syam katni","1515015188\n","\t\t\t\t         3. ","Imamul Muttaqim Hamdi","1515015198"]).
 	mulai:-
 	nl,nl,
@@ -67,18 +70,21 @@ ans(_,_):-fail.
   			readln(Nama),					%fungsi untuk menginputkan nilai string
   			write("Masukkan Merek Leptop Anda = "),
   			readln(Leptop),nl,  				%fungsi untuk menginputkan nilai string
-  			dataxx(Nama,Leptop),nl,
+    			write("Nama Anda Adalah "),
+  			dataxx(Nama,Leptop),
+    			write(" Adalah Merek Leptop Anda !"),nl,
   			write("apakah data sedah benar Y/T?"),
  			readchar(A),pil1(A).				%akan membaca karakter dari variabel A jika bernilai Y/y makan akan mengarahkan ke fact per2 jika selain itu akan berulang
   			pil1(A):-ans(A,'Y'),per2.
-  			pil1(A):-ans(A,'y'),per2.  			
-  			
-  			pil1(_):-xxx,mulai.				%jila inputannya selain Y/y itu akan menggulang ke session fact mulai.
+  			pil1(A):-ans(A,'y'),per2.  			  			
+  			pil1(A):-ans(A,'T'),mulai.
+  			pil1(A):-ans(A,'t'),mulai.  			  			
+  			pil1(_):-xxxx.				%jila inputannya selain Y/y itu akan menggulang ke session fact mulai.
   	
   	lihat([H|T]):-							%fact yng berisi List yg memiliki head dan tail
 	not(false(H)),							%false akan bernilai salah jika ada nilai head
-	write(H),							%akan menampilkan nlai H
-	lihat(T).							%akan kembali ke T
+	write(H),							%akan menampilkan nlai H	
+	lihat(T).								%akan kembali ke T
 	
 	lihat([H|_]):-
 	assertz(false(H)).
@@ -282,5 +288,15 @@ ans(_,_):-fail.
 	exitx:-
 	nl,nl,nl,
 	write("TERIMA KASIH TELAH MENGGUNAKAN PROGRAM KAMI UNTUK MENDETEKSI KERUSAKAN \n HARDWARE KOMPUTER PADA KOMPUTER ANDA :)"),exit.
+	
+	xxxx:-
+	nl,
+	write("Anda Memasukkan Inputan yang salah \n Apakah anda ingin Menggunakan Aplikasi Kami ? Y/T"),
+	readchar(A), pilxx(A).
+	pilxx(A):-ans(A,'Y'),mulai.							
+	pilxx(A):-ans(A,'y'),mulai.
+	pilxx(A):-ans(A,'T'),exitx.							
+	pilxx(A):-ans(A,'t'),exitx.
+	
 goal
 mulai.
